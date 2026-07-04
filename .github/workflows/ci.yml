@@ -36,13 +36,16 @@ jobs:
           else echo "pm=npm" >> $GITHUB_OUTPUT
           fi
 
-      - name: Install dependencies
+      - name: Install dependencies (via Corepack)
         run: |
+          # Use Corepack to activate PNPM/Yarn without global installs (safer for CI)
+          corepack enable
+
           if [ "${{ steps.detect_pm.outputs.pm }}" = "pnpm" ]; then
-            npm install -g pnpm@latest
+            corepack prepare pnpm@latest --activate
             pnpm install --frozen-lockfile
           elif [ "${{ steps.detect_pm.outputs.pm }}" = "yarn" ]; then
-            npm install -g yarn
+            corepack prepare yarn@stable --activate
             yarn install --frozen-lockfile
           else
             npm ci
