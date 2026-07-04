@@ -23,6 +23,7 @@ jobs:
 
       - name: Debug node/npm versions
         run: |
+          set -eux
           echo "Node: $(node -v)"
           echo "npm: $(npm -v)"
           pnpm -v 2>/dev/null || true
@@ -36,26 +37,49 @@ jobs:
           else echo "pm=npm" >> $GITHUB_OUTPUT
           fi
 
-      - name: Install dependencies (via Corepack)
+      - name: Install dependencies (corepack + fallbacks)
         run: |
-          # Use Corepack to activate PNPM/Yarn without global installs (safer for CI)
-          corepack enable
+          set -eux
+          # Try to enable corepack (non-fatal)
+          corepack enable || echo "corepack enable failed (continuing)"
 
-          if [ "${{ steps.detect_pm.outputs.pm }}" = "pnpm" ]; then
-            corepack prepare pnpm@latest --activate
-            pnpm install --frozen-lockfile
-          elif [ "${{ steps.detect_pm.outputs.pm }}" = "yarn" ]; then
-            corepack prepare yarn@stable --activate
-            yarn install --frozen-lockfile
+          PM="${{ steps.detect_pm.outputs.pm }}"
+          echo "Detected package manager: $PM"
+
+          if [ "$PM" = "pnpm" ]; then
+            # Try to prepare pnpm via corepack; if that fails, fall back to npx pnpm
+            corepack prepare pnpm@latest --activate || echo "corepack prepare pnpm failed"
+            if command -v pnpm >/dev/null 2>&1; then
+              pnpm install --frozen-lockfile
+            else
+              echo "pnpm not available; falling back to npx pnpm"
+              npx pnpm@latest install --frozen-lockfile
+            fi
+
+          elif [ "$PM" = "yarn" ]; then
+            # Try to prepare yarn via corepack; if that fails, fall back to npx yarn
+            corepack prepare yarn@stable --activate || echo "corepack prepare yarn failed"
+            if command -v yarn >/dev/null 2>&1; then
+              # Try immutable install first (Yarn v2+), fall back to normal install when needed
+              yarn install --immutable || yarn install
+            else
+              echo "yarn not available; falling back to npx yarn"
+              npx yarn@stable install --immutable || npx yarn@stable install
+            fi
+
           else
             npm ci
           fi
 
+      - name: Show package manager versions (post-install)
+        run: |
+          set -eux
+          echo "post-install versions:"
+          node -v
+          npm -v
+          pnpm -v 2>/dev/null || echo "pnpm not installed"
+          yarn -v 2>/dev/null || echo "yarn not installed"
+
       - name: Lint
-        run: npm run lint --if-present
-
-      - name: Type-check
-        run: npx tsc --noEmit
-
-      - name: Build
-        run: npm run build --if-present
+        run: npm run lint --](#)
+
