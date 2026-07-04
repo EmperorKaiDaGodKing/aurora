@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Core tokens — edit to tune the mood */
+:root {
+  --accent: #8b5cf6;        /* soft violet */
+  --muted: #94a3b8;         /* cool gray for secondary text */
+  --bg-deep: #060708;       /* darkest canvas */
+  --glass: rgba(255,255,255,0.03);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+}
+
+/* Page-level base */
+html, body, #__next {
+  height: 100%;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(139,92,246,0.06), transparent 12%),
+              radial-gradient(1000px 500px at 90% 90%, rgba(14,165,233,0.03), transparent 12%),
+              var(--bg-deep);
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+h1 { font-size: 2.25rem; line-height: 1.05; }
+h2 { font-size: 1.5rem; }
+
+/* Paragraphs & muted text */
+p, li {
+  color: var(--muted);
+}
+
+small {
+  color: #7c8b98;
+}
+
+/* Glass card */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+}
+
+/* Buttons (sensible default, Tailwind utilities still preferred) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--accent), #5eead4 140%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(139,92,246,0.12);
+  border: none;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease, opacity .12s ease;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(139,92,246,0.16); }
+.btn-primary:active { transform: translateY(0); opacity: 0.96; }
+
+/* Accessible focus */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  box-shadow: 0 0 0 4px rgba(139,92,246,0.18);
+  border-radius: calc(var(--radius-sm) + 2px);
+}
+
+/* Utilities for small UI pieces */
+.kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9fb0c6;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary, * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Small responsive tweaks */
+@media (max-width: 640px) {
+  .container { padding-left: 16px; padding-right: 16px; }
+  h1 { font-size: 1.75rem; }
+}
