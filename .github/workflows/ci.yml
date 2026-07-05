@@ -46,6 +46,14 @@ jobs:
           else
             echo "pm=npm" >> $GITHUB_OUTPUT
           fi
+          
+      - name: Ensure npm registry and pre-install Tailwind
+        run: |
+          set -eux
+          # make sure we use the public npm registry in case CI is pointing somewhere else
+          npm config set registry https://registry.npmjs.org/
+          # install a compatible Tailwind release into the environment so the install step doesn't fail
+          npm install tailwindcss@latest --no-save || true
 
       - name: Install dependencies (safe, lockfile-aware)
         run: |
