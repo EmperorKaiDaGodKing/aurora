@@ -10,8 +10,11 @@ export default function Home() {
       </Head>
       <main style={{fontFamily: '"Inter", system-ui, -apple-system', padding: 48}}>
         <h1 style={{fontSize: 36, marginBottom: 12}}>Aurora</h1>
-        <p style={{color: '#666', marginBottom: 24}}>
+        <p style={{color: '#666', marginBottom: 16}}>
           Mood-driven underwear and ritual suggestions — quiet, tactile, and a little dangerous.
+        </p>
+        <p style={{color: '#8a8fa0', marginBottom: 24, maxWidth: 560}}>
+          Meet Aurora AI: a small mood assistant that helps you translate feeling into intimate rituals and wardrobe choices.
         </p>
         <section>
           <Link href="/ai">
