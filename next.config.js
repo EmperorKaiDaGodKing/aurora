@@ -17,6 +17,16 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        'node:sqlite': false,
+        sqlite: false,
+      };
+    }
+    return config;
+  },
   // future / experimental tweaks can go here
 };
 
