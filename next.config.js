@@ -21,8 +21,9 @@ const nextConfig = {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
-        'node:sqlite': false,
-        sqlite: false,
+        // avoid including native/server-only sqlite packages in the client bundle
+        'better-sqlite3': false,
+        'sqlite3': false,
       };
     }
     return config;
