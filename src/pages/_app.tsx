@@ -22,8 +22,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             title="Launch Aurora AI"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 15c2.1-2.8 4.5-4.4 7.2-4.8 2.7-.4 5.3.8 7.8 3.6" />
-              <path d="M3 12c2.1-2.6 4.8-4 7.3-4.1 2.5-.1 5 1 7.6 3.8" />
+              <path d="M4 14.5c2-2.5 4.2-3.8 6.6-4 2.4-.2 4.8 0 7.2 1.8" />
+              <path d="M4 11.5c2.2-2.4 4.8-3.6 7.2-3.8 2.4-.2 4.8 0 7.2 1.8" />
             </svg>
           </a>
         </Link>
