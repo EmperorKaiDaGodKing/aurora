@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -13,9 +14,11 @@ export default function Home() {
           Mood-driven underwear and ritual suggestions — quiet, tactile, and a little dangerous.
         </p>
         <section>
-          <button style={{padding: '12px 18px', background: '#8b5cf6', color: '#fff', borderRadius: 8, border: 'none'}}>
-            Start the mood quiz
-          </button>
+          <Link href="/ai">
+            <a style={{padding: '12px 18px', background: '#8b5cf6', color: '#fff', borderRadius: 8, border: 'none', textDecoration: 'none'}}>
+              Start the AI assistant
+            </a>
+          </Link>
         </section>
       </main>
     </>

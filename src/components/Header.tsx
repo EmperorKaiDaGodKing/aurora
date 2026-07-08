@@ -7,6 +7,7 @@ const NAV: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/features', label: 'Features' },
   { href: '/gallery', label: 'Gallery' },
+  { href: '/ai', label: 'Aurora AI' },
   { href: 'https://github.com/EmperorKaiDaGodKing/aurora', label: 'GitHub' },
 ];
 
